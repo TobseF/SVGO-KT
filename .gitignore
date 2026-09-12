@@ -1,0 +1,7 @@
+.gradle/
+build/
+kotlin-js-store/
+*.log
+.idea/
+.DS_Store
+python/

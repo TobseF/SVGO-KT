@@ -27,11 +27,15 @@ public class CommentToken(public val value: String) : CssNode() {
     }
 }
 
-public class IdentToken(public val value: String) : CssNode() {
+public class IdentToken(
+    public val value: String,
+    /** The source spelling, kept so escapes such as the `\9` IE hack round-trip verbatim. */
+    public val raw: String? = null,
+) : CssNode() {
     override val type: String get() = "ident"
     public val lowerValue: String = value.lowercase()
     override fun serializeTo(sb: StringBuilder) {
-        sb.append(serializeIdentifier(value))
+        sb.append(raw ?: serializeIdentifier(value))
     }
 }
 
@@ -50,10 +54,14 @@ public class HashToken(public val value: String, public val isIdentifier: Boolea
     }
 }
 
-public class StringToken(public val value: String) : CssNode() {
+public class StringToken(
+    public val value: String,
+    /** The source spelling, including its original quote character. */
+    public val raw: String? = null,
+) : CssNode() {
     override val type: String get() = "string"
     override fun serializeTo(sb: StringBuilder) {
-        sb.append(serializeString(value))
+        sb.append(raw ?: serializeString(value))
     }
 }
 
@@ -91,10 +99,12 @@ public class DimensionToken(
     public val representation: String,
     public val isInteger: Boolean,
     public val unit: String,
+    /** The unit's source spelling; `px\9` must not be re-escaped from its decoded form. */
+    public val unitRaw: String? = null,
 ) : CssNode() {
     override val type: String get() = "dimension"
     override fun serializeTo(sb: StringBuilder) {
-        sb.append(representation).append(serializeIdentifier(unit))
+        sb.append(representation).append(unitRaw ?: serializeIdentifier(unit))
     }
 }
 
@@ -183,13 +193,15 @@ public class DeclarationNode(
     public val name: String,
     public val value: MutableList<CssNode>,
     public val important: Boolean,
+    /** The `important` keyword as written; css-tree keeps a non-lowercase spelling verbatim. */
+    public val importantRaw: String? = null,
 ) : CssNode() {
     override val type: String get() = "declaration"
     public val lowerName: String = name.lowercase()
     override fun serializeTo(sb: StringBuilder) {
         sb.append(serializeIdentifier(name)).append(':')
         for (node in value) node.serializeTo(sb)
-        if (important) sb.append("!important")
+        if (important) sb.append('!').append(importantRaw ?: "important")
     }
 }
 
@@ -326,8 +338,9 @@ private class Tokenizer(private val css: String) {
             }
 
             ch == '"' || ch == '\'' -> {
+                val start = pos
                 pos++
-                StringToken(consumeString(ch))
+                StringToken(consumeString(ch), css.substring(start, pos))
             }
 
             ch == '#' -> {
@@ -504,7 +517,11 @@ private class Tokenizer(private val css: String) {
         val representation = css.substring(start, pos)
         val value = representation.toDoubleOrNull() ?: 0.0
         return when {
-            wouldStartIdentifier(pos) -> DimensionToken(value, representation, isInteger, consumeName())
+            wouldStartIdentifier(pos) -> {
+                val unitStart = pos
+                val unit = consumeName()
+                DimensionToken(value, representation, isInteger, unit, css.substring(unitStart, pos))
+            }
             pos < css.length && css[pos] == '%' -> {
                 pos++
                 PercentageToken(value, representation, isInteger)
@@ -514,7 +531,9 @@ private class Tokenizer(private val css: String) {
     }
 
     private fun consumeIdentLike(): CssNode {
+        val nameStart = pos
         val name = consumeName()
+        val nameRaw = css.substring(nameStart, pos)
         if (pos < css.length && css[pos] == '(') {
             pos++
             if (name.lowercase() == "url") {
@@ -527,7 +546,7 @@ private class Tokenizer(private val css: String) {
             }
             return FunctionBlock(name, tokenize(')'))
         }
-        return IdentToken(name)
+        return IdentToken(name, nameRaw)
     }
 
     private fun consumeUrl(): CssNode {
@@ -588,6 +607,7 @@ private fun parseOneDeclaration(nodes: List<CssNode>): DeclarationNode? {
     var end = value.size
     while (end > 0 && (value[end - 1] is WhitespaceToken || value[end - 1] is CommentToken)) end--
     var important = false
+    var importantRaw: String? = null
     if (end > 0) {
         val last = value[end - 1]
         if (last is IdentToken && last.lowerValue == "important") {
@@ -598,11 +618,12 @@ private fun parseOneDeclaration(nodes: List<CssNode>): DeclarationNode? {
             val bang = value.getOrNull(bangIndex)
             if (bang is LiteralToken && bang.value == "!") {
                 important = true
+                importantRaw = last.value
                 while (value.size > bangIndex) value.removeAt(value.size - 1)
             }
         }
     }
-    return DeclarationNode(nameToken.value, trimEnds(value), important)
+    return DeclarationNode(nameToken.value, trimEnds(value), important, importantRaw)
 }
 
 /** Parse a declaration list (the content of a rule or of a `style` attribute). */

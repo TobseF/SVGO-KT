@@ -22,20 +22,13 @@ class PluginFixtureTest {
     private val idempotenceExclude = setOf("addAttributesToSVGElement", "convertTransform")
 
     /**
-     * The CSS minifier reproduces csso's *value* minification and its usage-based dead-rule
-     * removal, but not csso's *restructuring* passes (shorthand merging, rule merging, block
-     * restructuring -- `csso/lib/restructure`, a subsystem of its own). The fixtures below exercise
-     * exactly those passes; they are reported as known gaps instead of failures.
+     * Fixtures that are expected to fail.
      *
-     * Every other fixture must match byte-for-byte -- do not add entries here to silence a
-     * regression.
+     * Empty: every fixture matches the reference SVGO output byte for byte. Do not add entries
+     * here to silence a regression -- a listed fixture that starts passing fails the suite too, so
+     * the list cannot quietly go stale.
      */
-    private val knownGaps = mapOf(
-        "minifyStyles.01" to "csso shorthand merging (padding/margin) not reproduced",
-        "minifyStyles.02" to "csso shorthand merging (padding/margin) not reproduced",
-        "minifyStyles.03" to "csso shorthand merging (padding/margin) not reproduced",
-        "inlineStyles.15" to "csstree serialization of the deprecated /deep/ combinator",
-    )
+    private val knownGaps = emptyMap<String, String>()
 
     @TestFactory
     fun pluginFixtures(): List<DynamicTest> {

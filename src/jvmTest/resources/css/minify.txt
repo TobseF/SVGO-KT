@@ -1,0 +1,1471 @@
+@@@SHEET
+.a{padding-top:1em;padding-right:1em;padding-bottom:1em;padding-left:1em}
+@@@EXPECT
+.a{padding:1em}
+@@@END
+@@@SHEET
+.a{margin-top:1px;margin-right:2px;margin-bottom:3px;margin-left:4px}
+@@@EXPECT
+.a{margin:1px 2px 3px 4px}
+@@@END
+@@@SHEET
+.a{margin-top:1px;margin-right:2px;margin-bottom:1px;margin-left:2px}
+@@@EXPECT
+.a{margin:1px 2px}
+@@@END
+@@@SHEET
+.a{margin-top:1px;margin-right:2px;margin-bottom:3px;margin-left:2px}
+@@@EXPECT
+.a{margin:1px 2px 3px}
+@@@END
+@@@SHEET
+.a{margin-top:0;margin-right:0;margin-bottom:0;margin-left:0}
+@@@EXPECT
+.a{margin:0}
+@@@END
+@@@SHEET
+.a{padding-top:1em;padding-right:1em;padding-bottom:1em}
+@@@EXPECT
+.a{padding-top:1em;padding-right:1em;padding-bottom:1em}
+@@@END
+@@@SHEET
+.a{margin:1px;margin-top:2px}
+@@@EXPECT
+.a{margin:2px 1px 1px}
+@@@END
+@@@SHEET
+.a{margin-top:2px;margin:1px}
+@@@EXPECT
+.a{margin:1px}
+@@@END
+@@@SHEET
+.a{margin:1px 2px;margin-left:3px}
+@@@EXPECT
+.a{margin:1px 2px 1px 3px}
+@@@END
+@@@SHEET
+.a{margin-top:1px!important;margin-right:1px!important;margin-bottom:1px!important;margin-left:1px!important}
+@@@EXPECT
+.a{margin:1px!important}
+@@@END
+@@@SHEET
+.a{margin-top:1px!important;margin-right:1px;margin-bottom:1px;margin-left:1px}
+@@@EXPECT
+.a{margin-top:1px!important;margin-right:1px;margin-bottom:1px;margin-left:1px}
+@@@END
+@@@SHEET
+.a{margin-top:1rem;margin-right:1rem;margin-bottom:1rem;margin-left:1rem}
+@@@EXPECT
+.a{margin:1rem}
+@@@END
+@@@SHEET
+.a{margin-top:1vw;margin-right:1vw;margin-bottom:1vw;margin-left:1vw}
+@@@EXPECT
+.a{margin:1vw}
+@@@END
+@@@SHEET
+.a{margin-top:var(--x);margin-right:var(--x);margin-bottom:var(--x);margin-left:var(--x)}
+@@@EXPECT
+.a{margin-top:var(--x);margin-right:var(--x);margin-bottom:var(--x);margin-left:var(--x)}
+@@@END
+@@@SHEET
+.a{margin-top:inherit;margin-right:inherit;margin-bottom:inherit;margin-left:inherit}
+@@@EXPECT
+.a{margin:inherit}
+@@@END
+@@@SHEET
+.a{margin-top:inherit;margin-right:1px;margin-bottom:1px;margin-left:1px}
+@@@EXPECT
+.a{margin-top:inherit;margin-right:1px;margin-bottom:1px;margin-left:1px}
+@@@END
+@@@SHEET
+.a{border-top-width:1px;border-right-width:1px;border-bottom-width:1px;border-left-width:1px}
+@@@EXPECT
+.a{border-width:1px}
+@@@END
+@@@SHEET
+.a{border-top-color:red;border-right-color:red;border-bottom-color:red;border-left-color:red}
+@@@EXPECT
+.a{border-color:red}
+@@@END
+@@@SHEET
+.a{border-top-style:solid;border-right-style:solid;border-bottom-style:solid;border-left-style:solid}
+@@@EXPECT
+.a{border-style:solid}
+@@@END
+@@@SHEET
+.a{padding-top:1px;padding-right:1px;padding-bottom:1px;padding-left:1px;margin-top:2px;margin-right:2px;margin-bottom:2px;margin-left:2px}
+@@@EXPECT
+.a{padding:1px;margin:2px}
+@@@END
+@@@SHEET
+.a{padding-top:1px}.a{padding-right:1px}.a{padding-bottom:1px}.a{padding-left:1px}
+@@@EXPECT
+.a{padding:1px}
+@@@END
+@@@SHEET
+.a{padding-top:1px}.b{color:red}.a{padding-right:1px;padding-bottom:1px;padding-left:1px}
+@@@EXPECT
+.b{color:red}.a{padding:1px}
+@@@END
+@@@SHEET
+.a{margin-top:calc(1px + 2px);margin-right:calc(1px + 2px);margin-bottom:calc(1px + 2px);margin-left:calc(1px + 2px)}
+@@@EXPECT
+.a{margin:calc(1px + 2px)}
+@@@END
+@@@SHEET
+.a{margin-top:1px\9;margin-right:1px;margin-bottom:1px;margin-left:1px}
+@@@EXPECT
+.a{margin:1px\9 1px 1px}
+@@@END
+@@@SHEET
+.a{color:red;color:blue}
+@@@EXPECT
+.a{color:#00f}
+@@@END
+@@@SHEET
+.a{color:red!important;color:blue}
+@@@EXPECT
+.a{color:red!important}
+@@@END
+@@@SHEET
+.a{color:red;color:blue!important}
+@@@EXPECT
+.a{color:#00f!important}
+@@@END
+@@@SHEET
+.a{margin:1px;margin-top:2px;margin:3px}
+@@@EXPECT
+.a{margin:3px}
+@@@END
+@@@SHEET
+.a{font:12px serif;font-size:14px}
+@@@EXPECT
+.a{font:12px serif;font-size:14px}
+@@@END
+@@@SHEET
+.a{font-size:14px;font:12px serif}
+@@@EXPECT
+.a{font:12px serif}
+@@@END
+@@@SHEET
+.a{list-style-type:disc;list-style:none}
+@@@EXPECT
+.a{list-style:none}
+@@@END
+@@@SHEET
+.a{border:1px solid red;border-top-width:2px}
+@@@EXPECT
+.a{border:1px solid red;border-top-width:2px}
+@@@END
+@@@SHEET
+.a{border-top-width:2px;border:1px solid red}
+@@@EXPECT
+.a{border:1px solid red}
+@@@END
+@@@SHEET
+.a{display:block;display:table}
+@@@EXPECT
+.a{display:block;display:table}
+@@@END
+@@@SHEET
+.a{display:block;display:inline}
+@@@EXPECT
+.a{display:inline}
+@@@END
+@@@SHEET
+.a{position:absolute;position:fixed}
+@@@EXPECT
+.a{position:fixed}
+@@@END
+@@@SHEET
+.a{text-align:left;text-align:justify-all}
+@@@EXPECT
+.a{text-align:left;text-align:justify-all}
+@@@END
+@@@SHEET
+.a{background:url(a.png);background:url(b.png)}
+@@@EXPECT
+.a{background:url(a.png);background:url(b.png)}
+@@@END
+@@@SHEET
+.a{src:url(a.woff);src:url(b.woff)}
+@@@EXPECT
+.a{src:url(a.woff);src:url(b.woff)}
+@@@END
+@@@SHEET
+.a{cursor:pointer;cursor:zoom-in}
+@@@EXPECT
+.a{cursor:pointer;cursor:zoom-in}
+@@@END
+@@@SHEET
+.a{overflow:hidden;overflow:clip}
+@@@EXPECT
+.a{overflow:hidden;overflow:clip}
+@@@END
+@@@SHEET
+.a{color:red;-webkit-color:blue;color:green}
+@@@EXPECT
+.a{-webkit-color:#00f;color:green}
+@@@END
+@@@SHEET
+.a{color:red}.a{background:blue}
+@@@EXPECT
+.a{color:red;background:#00f}
+@@@END
+@@@SHEET
+.a{color:red}.b{color:red}
+@@@EXPECT
+.a,.b{color:red}
+@@@END
+@@@SHEET
+.a{color:red}b{color:red}
+@@@EXPECT
+.a,b{color:red}
+@@@END
+@@@SHEET
+.a,.b{color:red}.c{color:red}
+@@@EXPECT
+.a,.b,.c{color:red}
+@@@END
+@@@SHEET
+.a{color:red}.b{color:green}.c{color:red}
+@@@EXPECT
+.a{color:red}.b{color:green}.c{color:red}
+@@@END
+@@@SHEET
+.a{color:red;background:blue}.b{color:red;background:blue}
+@@@EXPECT
+.a,.b{color:red;background:#00f}
+@@@END
+@@@SHEET
+.a{color:red;background:blue;border:0}.b{color:red;background:blue}
+@@@EXPECT
+.a{border:0}.a,.b{color:red;background:#00f}
+@@@END
+@@@SHEET
+.a{color:red;background:blue}.b{color:red;background:blue;border:0}
+@@@EXPECT
+.a,.b{color:red;background:#00f}.b{border:0}
+@@@END
+@@@SHEET
+.a{color:red;background:blue;font-size:10px}.b{color:red;background:blue;padding:2px}
+@@@EXPECT
+.a,.b{color:red;background:#00f}.a{font-size:10px}.b{padding:2px}
+@@@END
+@@@SHEET
+a{color:red}a{color:red}
+@@@EXPECT
+a{color:red}
+@@@END
+@@@SHEET
+.a{color:red}div{color:blue}.a{background:green}
+@@@EXPECT
+.a{color:red;background:green}div{color:#00f}
+@@@END
+@@@SHEET
+p{color:red}p span{color:red}
+@@@EXPECT
+p,p span{color:red}
+@@@END
+@@@SHEET
+.a:hover{color:red}.b:hover{color:red}
+@@@EXPECT
+.a:hover,.b:hover{color:red}
+@@@END
+@@@SHEET
+.a::after{color:red}.b::after{color:red}
+@@@EXPECT
+.a::after,.b::after{color:red}
+@@@END
+@@@SHEET
+.a:focus{color:red}.b{color:red}
+@@@EXPECT
+.a:focus{color:red}.b{color:red}
+@@@END
+@@@SHEET
+.a{color:red}.b{color:red}.c{color:red}.d{color:red}
+@@@EXPECT
+.a,.b,.c,.d{color:red}
+@@@END
+@@@SHEET
+#i{color:red}.c{color:red}tag{color:red}
+@@@EXPECT
+#i,.c,tag{color:red}
+@@@END
+@@@SHEET
+@media screen{.a{color:red}}@media screen{.b{color:blue}}
+@@@EXPECT
+@media screen{.a{color:red}.b{color:#00f}}
+@@@END
+@@@SHEET
+@media screen and (max-width: 200px){.a{display:none}}
+@@@EXPECT
+@media screen and (max-width:200px){.a{display:none}}
+@@@END
+@@@SHEET
+.a{color:red}@media print{.a{color:blue}}.b{color:red}
+@@@EXPECT
+.a{color:red}@media print{.a{color:#00f}}.b{color:red}
+@@@END
+@@@SHEET
+@keyframes a{from{opacity:0}to{opacity:1}}.x{color:red}@keyframes a{from{opacity:.5}}
+@@@EXPECT
+@keyframes a{0%{opacity:.5}}.x{color:red}
+@@@END
+@@@SHEET
+@supports (display:grid){.a{display:grid}.b{display:grid}}
+@@@EXPECT
+@supports (display:grid){.a,.b{display:grid}}
+@@@END
+@@@SHEET
+@font-face{font-family:x;src:url(a.woff);src:url(b.woff)}
+@@@EXPECT
+@font-face{font-family:x;src:url(a.woff);src:url(b.woff)}
+@@@END
+@@@SHEET
+@import url(a.css);.a{color:red}
+@@@EXPECT
+@import url(a.css);.a{color:red}
+@@@END
+@@@SHEET
+@charset "utf-8";.a{color:red}
+@@@EXPECT
+@charset "utf-8";.a{color:red}
+@@@END
+@@@SHEET
+@media screen{}
+@@@EXPECT
+
+@@@END
+@@@SHEET
+.a{}
+@@@EXPECT
+
+@@@END
+@@@SHEET
+/*! keep */.a{color:red}/* drop */
+@@@EXPECT
+/*! keep */
+.a{color:red}
+@@@END
+@@@SHEET
+.a{color:#FF0000;background:#FFFFFF}
+@@@EXPECT
+.a{color:red;background:#fff}
+@@@END
+@@@SHEET
+.a{color:red;fill:white}
+@@@EXPECT
+.a{color:red;fill:#fff}
+@@@END
+@@@SHEET
+.a{margin:0.5px;padding:1.50px;top:+2px}
+@@@EXPECT
+.a{margin:.5px;padding:1.5px;top:2px}
+@@@END
+@@@SHEET
+.a{background:url('a b.png')}
+@@@EXPECT
+.a{background:url(a\ b.png)}
+@@@END
+@@@SHEET
+.a{background:url("a.png")}
+@@@EXPECT
+.a{background:url(a.png)}
+@@@END
+@@@SHEET
+.a{content:"\2014"}
+@@@EXPECT
+.a{content:"—"}
+@@@END
+@@@SHEET
+.a{transition:all .3s ease-in-out}
+@@@EXPECT
+.a{transition:all .3s ease-in-out}
+@@@END
+@@@SHEET
+.a{grid-template-areas:"a b" "c d"}
+@@@EXPECT
+.a{grid-template-areas:"a b""c d"}
+@@@END
+@@@SHEET
+.a{--custom-Prop:Red;color:var(--custom-Prop)}
+@@@EXPECT
+.a{--custom-Prop:Red;color:var(--custom-Prop)}
+@@@END
+@@@SHEET
+.a{filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#FF000000')}
+@@@EXPECT
+.a{filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#FF000000')}
+@@@END
+@@@SHEET
+.a{width:calc(100% - 10px)}
+@@@EXPECT
+.a{width:calc(100% - 10px)}
+@@@END
+@@@SHEET
+.a{clip:rect(0,0,0,0)}.b{clip:rect(0 0 0 0)}
+@@@EXPECT
+.a{clip:rect(0,0,0,0)}.b{clip:rect(0 0 0 0)}
+@@@END
+@@@SHEET
+*{margin:0}
+@@@EXPECT
+*{margin:0}
+@@@END
+@@@SHEET
+.a>.b+.c~.d e{color:red}
+@@@EXPECT
+.a>.b+.c~.d e{color:red}
+@@@END
+@@@SHEET
+.a[data-x="1"]{color:red}
+@@@EXPECT
+.a[data-x="1"]{color:red}
+@@@END
+@@@SHEET
+.a[data-x="1" i]{color:red}
+@@@EXPECT
+.a[data-x="1"i]{color:red}
+@@@END
+@@@SHEET
+:root{--x:1}
+@@@EXPECT
+:root{--x:1}
+@@@END
+@@@SHEET
+.a{color:RED}
+@@@EXPECT
+.a{color:red}
+@@@END
+@@@SHEET
+DIV{color:red}
+@@@EXPECT
+DIV{color:red}
+@@@END
+@@@SHEET
+.a{color:rgb(255,0,0)}
+@@@EXPECT
+.a{color:red}
+@@@END
+@@@SHEET
+.a{color:rgb(255 0 0)}
+@@@EXPECT
+.a{color:rgb(255 0 0)}
+@@@END
+@@@SHEET
+.a{color:rgba(255,0,0,1)}
+@@@EXPECT
+.a{color:red}
+@@@END
+@@@SHEET
+.a{color:rgba(255,0,0,.5)}
+@@@EXPECT
+.a{color:rgba(255,0,0,.5)}
+@@@END
+@@@SHEET
+.a{color:hsl(0,100%,50%)}
+@@@EXPECT
+.a{color:red}
+@@@END
+@@@SHEET
+.a{color:hsla(0,100%,50%,1)}
+@@@EXPECT
+.a{color:red}
+@@@END
+@@@SHEET
+.a{color:#ff0000}
+@@@EXPECT
+.a{color:red}
+@@@END
+@@@SHEET
+.a{color:#FFFFFF}
+@@@EXPECT
+.a{color:#fff}
+@@@END
+@@@SHEET
+.a{color:#f00}
+@@@EXPECT
+.a{color:red}
+@@@END
+@@@SHEET
+.a{color:white}
+@@@EXPECT
+.a{color:#fff}
+@@@END
+@@@SHEET
+.a{color:black}
+@@@EXPECT
+.a{color:#000}
+@@@END
+@@@SHEET
+.a{color:fuchsia}
+@@@EXPECT
+.a{color:#f0f}
+@@@END
+@@@SHEET
+.a{color:cyan}
+@@@EXPECT
+.a{color:#0ff}
+@@@END
+@@@SHEET
+.a{color:transparent}
+@@@EXPECT
+.a{color:transparent}
+@@@END
+@@@SHEET
+.a{border:1px solid rgb(0,0,0)}
+@@@EXPECT
+.a{border:1px solid #000}
+@@@END
+@@@SHEET
+.a{color:rgb(300,0,0)}
+@@@EXPECT
+.a{color:red}
+@@@END
+@@@SHEET
+.a{color:rgba(0,0,0,0)}
+@@@EXPECT
+.a{color:transparent}
+@@@END
+@@@SHEET
+.a{width:0px}
+@@@EXPECT
+.a{width:0}
+@@@END
+@@@SHEET
+.a{width:0%}
+@@@EXPECT
+.a{width:0%}
+@@@END
+@@@SHEET
+.a{margin:0px 0em 0pt 0in}
+@@@EXPECT
+.a{margin:0}
+@@@END
+@@@SHEET
+.a{width:010.50px}
+@@@EXPECT
+.a{width:10.5px}
+@@@END
+@@@SHEET
+.a{width:+1px}
+@@@EXPECT
+.a{width:1px}
+@@@END
+@@@SHEET
+.a{line-height:1.0}
+@@@EXPECT
+.a{line-height:1}
+@@@END
+@@@SHEET
+.a{width:1e3px}
+@@@EXPECT
+.a{width:1e3px}
+@@@END
+@@@SHEET
+.a{transition-duration:0s}
+@@@EXPECT
+.a{transition-duration:0s}
+@@@END
+@@@SHEET
+.a{width:0.000px}
+@@@EXPECT
+.a{width:0}
+@@@END
+@@@SHEET
+.a{z-index:0001}
+@@@EXPECT
+.a{z-index:1}
+@@@END
+@@@SHEET
+.a{font:normal normal 12px/1.2 Arial}
+@@@EXPECT
+.a{font:12px/1.2 Arial}
+@@@END
+@@@SHEET
+.a{font:bold 12px Arial}
+@@@EXPECT
+.a{font:700 12px Arial}
+@@@END
+@@@SHEET
+.a{font-weight:normal}
+@@@EXPECT
+.a{font-weight:400}
+@@@END
+@@@SHEET
+.a{font-weight:bold}
+@@@EXPECT
+.a{font-weight:700}
+@@@END
+@@@SHEET
+.a{font-weight:400}
+@@@EXPECT
+.a{font-weight:400}
+@@@END
+@@@SHEET
+.a{font-weight:700}
+@@@EXPECT
+.a{font-weight:700}
+@@@END
+@@@SHEET
+.a{font:12px Arial,sans-serif}
+@@@EXPECT
+.a{font:12px Arial,sans-serif}
+@@@END
+@@@SHEET
+.a{background:none repeat scroll 0 0 red}
+@@@EXPECT
+.a{background:0 0 red}
+@@@END
+@@@SHEET
+.a{background:transparent none}
+@@@EXPECT
+.a{background:0 0}
+@@@END
+@@@SHEET
+.a{background:url(a.png) 0 0 no-repeat}
+@@@EXPECT
+.a{background:url(a.png)0 0 no-repeat}
+@@@END
+@@@SHEET
+.a{border:medium none}
+@@@EXPECT
+.a{border:medium}
+@@@END
+@@@SHEET
+.a{outline:medium none}
+@@@EXPECT
+.a{outline:medium}
+@@@END
+@@@SHEET
+.a{border:none}
+@@@EXPECT
+.a{border:0}
+@@@END
+@@@SHEET
+.a{border:1px none red}
+@@@EXPECT
+.a{border:1px red}
+@@@END
+@@@SHEET
+@media (min-width:100px) and (max-width:200px){.a{color:red}}
+@@@EXPECT
+@media (min-width:100px) and (max-width:200px){.a{color:red}}
+@@@END
+@@@SHEET
+@media only screen and (-webkit-min-device-pixel-ratio:1.5){.a{color:red}}
+@@@EXPECT
+@media only screen and (-webkit-min-device-pixel-ratio:1.5){.a{color:red}}
+@@@END
+@@@SHEET
+@media (min-resolution:2dppx){.a{color:red}}
+@@@EXPECT
+@media (min-resolution:2dppx){.a{color:red}}
+@@@END
+@@@SHEET
+@supports not (display:grid){.a{float:left}}
+@@@EXPECT
+@supports not (display:grid){.a{float:left}}
+@@@END
+@@@SHEET
+@page :first{margin:1in}
+@@@EXPECT
+@page :first{margin:1in}
+@@@END
+@@@SHEET
+@font-face{font-family:'My Font';src:url(a.woff2) format('woff2')}
+@@@EXPECT
+@font-face{font-family:"My Font";src:url(a.woff2)format("woff2")}
+@@@END
+@@@SHEET
+@namespace svg url(http://www.w3.org/2000/svg);
+@@@EXPECT
+@namespace svg url(http://www.w3.org/2000/svg);
+@@@END
+@@@SHEET
+@layer base{.a{color:red}}
+@@@EXPECT
+@layer base{.a{color:red}}
+@@@END
+@@@SHEET
+@container (min-width:200px){.a{color:red}}
+@@@EXPECT
+@container (min-width:200px){.a{color:red}}
+@@@END
+@@@SHEET
+@keyframes a{0%{opacity:0}50%{opacity:.5}100%{opacity:1}}
+@@@EXPECT
+@keyframes a{0%{opacity:0}50%{opacity:.5}to{opacity:1}}
+@@@END
+@@@SHEET
+@keyframes a{from{opacity:0}to{opacity:1}}
+@@@EXPECT
+@keyframes a{0%{opacity:0}to{opacity:1}}
+@@@END
+@@@SHEET
+@media screen{.a{color:red}.a{color:blue}}
+@@@EXPECT
+@media screen{.a{color:#00f}}
+@@@END
+@@@SHEET
+.a[data-x=abc]{color:red}
+@@@EXPECT
+.a[data-x=abc]{color:red}
+@@@END
+@@@SHEET
+.a[data-x="abc"]{color:red}
+@@@EXPECT
+.a[data-x=abc]{color:red}
+@@@END
+@@@SHEET
+.a[data-x="a b"]{color:red}
+@@@EXPECT
+.a[data-x="a b"]{color:red}
+@@@END
+@@@SHEET
+.a[data-x="1abc"]{color:red}
+@@@EXPECT
+.a[data-x="1abc"]{color:red}
+@@@END
+@@@SHEET
+.a[data-x="-abc"]{color:red}
+@@@EXPECT
+.a[data-x=-abc]{color:red}
+@@@END
+@@@SHEET
+.a[data-x="--abc"]{color:red}
+@@@EXPECT
+.a[data-x="--abc"]{color:red}
+@@@END
+@@@SHEET
+.a[ data-x ]{color:red}
+@@@EXPECT
+.a[data-x]{color:red}
+@@@END
+@@@SHEET
+a:not(.b .c){color:red}
+@@@EXPECT
+a:not(.b .c){color:red}
+@@@END
+@@@SHEET
+a:is(.b,.c){color:red}
+@@@EXPECT
+a:is(.b,.c){color:red}
+@@@END
+@@@SHEET
+a:where(.b){color:red}
+@@@EXPECT
+a:where(.b){color:red}
+@@@END
+@@@SHEET
+a:nth-child( 2n + 1 ){color:red}
+@@@EXPECT
+a:nth-child(2n+1){color:red}
+@@@END
+@@@SHEET
+a::first-line{color:red}
+@@@EXPECT
+a::first-line{color:red}
+@@@END
+@@@SHEET
+a:first-line{color:red}
+@@@EXPECT
+a:first-line{color:red}
+@@@END
+@@@SHEET
+* html .a{color:red}
+@@@EXPECT
+* html .a{color:red}
+@@@END
+@@@SHEET
+svg|rect{fill:red}
+@@@EXPECT
+svg|rect{fill:red}
+@@@END
+@@@SHEET
+.a   .b   >   .c{color:red}
+@@@EXPECT
+.a .b>.c{color:red}
+@@@END
+@@@SHEET
+a\:b{color:red}
+@@@EXPECT
+a\:b{color:red}
+@@@END
+@@@SHEET
+#\31 23{color:red}
+@@@EXPECT
+#\31 23{color:red}
+@@@END
+@@@SHEET
+.cls-1{fill:#fff;stroke:#000;stroke-width:2px}
+@@@EXPECT
+.cls-1{fill:#fff;stroke:#000;stroke-width:2px}
+@@@END
+@@@SHEET
+.st0{fill:none;stroke:#231f20;stroke-miterlimit:10}
+@@@EXPECT
+.st0{fill:none;stroke:#231f20;stroke-miterlimit:10}
+@@@END
+@@@SHEET
+path{fill:red}circle{fill:red}rect{fill:red}
+@@@EXPECT
+circle,path,rect{fill:red}
+@@@END
+@@@SHEET
+.a{stroke-dasharray:1,2,3}
+@@@EXPECT
+.a{stroke-dasharray:1,2,3}
+@@@END
+@@@SHEET
+.a{transform:translate(1px,2px) rotate(45deg)}
+@@@EXPECT
+.a{transform:translate(1px,2px) rotate(45deg)}
+@@@END
+@@@SHEET
+.a{marker-end:url(#arrow)}
+@@@EXPECT
+.a{marker-end:url(#arrow)}
+@@@END
+@@@SHEET
+text{font-family:'Helvetica Neue',Helvetica,Arial,sans-serif}
+@@@EXPECT
+text{font-family:"Helvetica Neue",Helvetica,Arial,sans-serif}
+@@@END
+@@@SHEET
+.a{color:red;;}
+@@@EXPECT
+.a{color:red}
+@@@END
+@@@SHEET
+.a{;color:red}
+@@@EXPECT
+.a{color:red}
+@@@END
+@@@SHEET
+.a{color:}
+@@@EXPECT
+
+@@@END
+@@@SHEET
+.a{:red}
+@@@EXPECT
+
+@@@END
+@@@SHEET
+@media{}
+@@@EXPECT
+
+@@@END
+@@@SHEET
+}{
+@@@EXPECT
+
+@@@END
+@@@SHEET
+.a{color:red}}
+@@@EXPECT
+.a{color:red}
+@@@END
+@@@SHEET
+.a{width:calc(100%/3)}
+@@@EXPECT
+.a{width:calc(100%/3)}
+@@@END
+@@@SHEET
+.a{width:calc((100% - 10px)/3)}
+@@@EXPECT
+.a{width:calc((100% - 10px)/3)}
+@@@END
+@@@SHEET
+.a{background-image:linear-gradient(to right,red 0,blue 100%)}
+@@@EXPECT
+.a{background-image:linear-gradient(to right,red 0,#00f 100%)}
+@@@END
+@@@SHEET
+.a{grid-template-columns:repeat(auto-fill,minmax(100px,1fr))}
+@@@EXPECT
+.a{grid-template-columns:repeat(auto-fill,minmax(100px,1fr))}
+@@@END
+@@@SHEET
+.a{--x:{a:b}}
+@@@EXPECT
+.a{--x:{a:b}}
+@@@END
+@@@SHEET
+.a{color:red!IMPORTANT}
+@@@EXPECT
+.a{color:red!IMPORTANT}
+@@@END
+@@@SHEET
+.a{color:red ! important}
+@@@EXPECT
+.a{color:red!important}
+@@@END
+@@@SHEET
+.a{COLOR:red}
+@@@EXPECT
+.a{COLOR:red}
+@@@END
+@@@SHEET
+.A{color:red}
+@@@EXPECT
+.A{color:red}
+@@@END
+@@@SHEET
+DIV P{color:red}
+@@@EXPECT
+DIV P{color:red}
+@@@END
+@@@SHEET
+.a{box-shadow:0 0 1px white}
+@@@EXPECT
+.a{box-shadow:0 0 1px #fff}
+@@@END
+@@@SHEET
+.a{text-shadow:1px 1px 2px black}
+@@@EXPECT
+.a{text-shadow:1px 1px 2px #000}
+@@@END
+@@@SHEET
+.a{background-image:linear-gradient(to right,white,black)}
+@@@EXPECT
+.a{background-image:linear-gradient(to right,#fff,#000)}
+@@@END
+@@@SHEET
+.a{background-image:radial-gradient(rgba(0,0,0,0),blue)}
+@@@EXPECT
+.a{background-image:radial-gradient(transparent,#00f)}
+@@@END
+@@@SHEET
+.a{background-image:linear-gradient(red,rgba(255,0,0,0))}
+@@@EXPECT
+.a{background-image:linear-gradient(red,rgba(255,0,0,0))}
+@@@END
+@@@SHEET
+.a{background:-webkit-linear-gradient(top,white,black)}
+@@@EXPECT
+.a{background:-webkit-linear-gradient(top,#fff,#000)}
+@@@END
+@@@SHEET
+.a{color:rgb(255,0,0,.5)}
+@@@EXPECT
+.a{color:rgb(255,0,0,.5)}
+@@@END
+@@@SHEET
+.a{color:hsl(120,100%,25%)}
+@@@EXPECT
+.a{color:green}
+@@@END
+@@@SHEET
+.a{stop-color:white}
+@@@EXPECT
+.a{stop-color:white}
+@@@END
+@@@SHEET
+.a{flood-color:white}
+@@@EXPECT
+.a{flood-color:white}
+@@@END
+@@@SHEET
+.a{font-family:tan}
+@@@EXPECT
+.a{font-family:tan}
+@@@END
+@@@SHEET
+.a{animation:1s tan}
+@@@EXPECT
+.a{animation:1s tan}
+@@@END
+@@@SHEET
+.a{width:calc(0px + 1px)}
+@@@EXPECT
+.a{width:calc(0px + 1px)}
+@@@END
+@@@SHEET
+.a{margin:calc(1px)}
+@@@EXPECT
+.a{margin:calc(1px)}
+@@@END
+@@@SHEET
+.a{background-position:0%}
+@@@EXPECT
+.a{background-position:0}
+@@@END
+@@@SHEET
+.a{font-size:0%}
+@@@EXPECT
+.a{font-size:0}
+@@@END
+@@@SHEET
+.a{border-width:0px}
+@@@EXPECT
+.a{border-width:0}
+@@@END
+@@@SHEET
+.a{stroke-width:0px}
+@@@EXPECT
+.a{stroke-width:0}
+@@@END
+@@@SHEET
+.a{stroke-dasharray:0px 1px}
+@@@EXPECT
+.a{stroke-dasharray:0 1px}
+@@@END
+@@@SHEET
+.a{flex:0px}
+@@@EXPECT
+.a{flex:0px}
+@@@END
+@@@SHEET
+.a{flex-basis:0px}
+@@@EXPECT
+.a{flex-basis:0}
+@@@END
+@@@SHEET
+.a{font:normal}
+@@@EXPECT
+.a{font:normal}
+@@@END
+@@@SHEET
+.a{font:normal normal normal 12px Arial}
+@@@EXPECT
+.a{font:12px Arial}
+@@@END
+@@@SHEET
+.a{background:red none repeat}
+@@@EXPECT
+.a{background:red}
+@@@END
+@@@SHEET
+.a{background:url(a.png),url(b.png)}
+@@@EXPECT
+.a{background:url(a.png),url(b.png)}
+@@@END
+@@@SHEET
+.a{border:0}
+@@@EXPECT
+.a{border:0}
+@@@END
+@@@SHEET
+.a{outline:none}
+@@@EXPECT
+.a{outline:0}
+@@@END
+@@@SHEET
+.a{font-weight:bolder}
+@@@EXPECT
+.a{font-weight:bolder}
+@@@END
+@@@SHEET
+.a{transform:translate(0%,0%)}
+@@@EXPECT
+.a{transform:translate(0,0)}
+@@@END
+@@@SHEET
+.a{transform:translateX(0%)}
+@@@EXPECT
+.a{transform:translateX(0)}
+@@@END
+@@@SHEET
+.a{transform:scale(0%)}
+@@@EXPECT
+.a{transform:scale(0%)}
+@@@END
+@@@SHEET
+.a{transform:matrix(1,0,0,1,0%,0%)}
+@@@EXPECT
+.a{transform:matrix(1,0,0,1,0%,0%)}
+@@@END
+@@@SHEET
+.a{clip-path:inset(0%)}
+@@@EXPECT
+.a{clip-path:inset(0)}
+@@@END
+@@@SHEET
+.a{clip-path:polygon(0% 0%,1px 1px)}
+@@@EXPECT
+.a{clip-path:polygon(0 0,1px 1px)}
+@@@END
+@@@SHEET
+.a{filter:blur(0%)}
+@@@EXPECT
+.a{filter:blur(0)}
+@@@END
+@@@SHEET
+.a{grid-template-columns:minmax(0%,1fr)}
+@@@EXPECT
+.a{grid-template-columns:minmax(0,1fr)}
+@@@END
+@@@SHEET
+.a{width:fit-content(0%)}
+@@@EXPECT
+.a{width:fit-content(0%)}
+@@@END
+@@@SHEET
+.a{width:calc(0%)}
+@@@EXPECT
+.a{width:calc(0%)}
+@@@END
+@@@SHEET
+.a{margin:calc(0%)}
+@@@EXPECT
+.a{margin:calc(0)}
+@@@END
+@@@SHEET
+.a{scrollbar-color:white black}
+@@@EXPECT
+.a{scrollbar-color:#fff #000}
+@@@END
+@@@SHEET
+.a{scrollbar-color:white}
+@@@EXPECT
+.a{scrollbar-color:white}
+@@@END
+@@@SHEET
+.a{box-shadow:1px white}
+@@@EXPECT
+.a{box-shadow:1px white}
+@@@END
+@@@SHEET
+.a{box-shadow:1px 1px white}
+@@@EXPECT
+.a{box-shadow:1px 1px #fff}
+@@@END
+@@@SHEET
+.a{box-shadow:inset 1px 1px white}
+@@@EXPECT
+.a{box-shadow:inset 1px 1px #fff}
+@@@END
+@@@SHEET
+.a{text-shadow:1px white}
+@@@EXPECT
+.a{text-shadow:1px white}
+@@@END
+@@@SHEET
+.a{stop-color:white}
+@@@EXPECT
+.a{stop-color:white}
+@@@END
+@@@SHEET
+.a{lighting-color:white}
+@@@EXPECT
+.a{lighting-color:white}
+@@@END
+@@@SHEET
+.a{stroke-width:0%}
+@@@EXPECT
+.a{stroke-width:0%}
+@@@END
+@@@SHEET
+.a{stroke-dasharray:0% 1px}
+@@@EXPECT
+.a{stroke-dasharray:0% 1px}
+@@@END
+@@@SHEET
+.a{background-position:0% 50%}
+@@@EXPECT
+.a{background-position:0 50%}
+@@@END
+@@@SHEET
+.a{my-unknown-prop:0%}
+@@@EXPECT
+.a{my-unknown-prop:0%}
+@@@END
+@@@SHEET
+.a{my-unknown-prop:white}
+@@@EXPECT
+.a{my-unknown-prop:white}
+@@@END
+@@@SHEET
+.a{translate:0%}
+@@@EXPECT
+.a{translate:0}
+@@@END
+@@@SHEET
+.a{rotate:0%}
+@@@EXPECT
+.a{rotate:0%}
+@@@END
+@@@SHEET
+.a{padding:0%}
+@@@EXPECT
+.a{padding:0}
+@@@END
+@@@SHEET
+.a{margin:0% 10px}
+@@@EXPECT
+.a{margin:0 10px}
+@@@END
+@@@SHEET
+.a{top:0%}
+@@@EXPECT
+.a{top:0}
+@@@END
+@@@SHEET
+.a{left:0%}
+@@@EXPECT
+.a{left:0}
+@@@END
+@@@SHEET
+.a{height:0%}
+@@@EXPECT
+.a{height:0%}
+@@@END
+@@@SHEET
+.a{line-height:0%}
+@@@EXPECT
+.a{line-height:0%}
+@@@END
+@@@SHEET
+.a{flex-basis:0%}
+@@@EXPECT
+.a{flex-basis:0}
+@@@END
+@@@SHEET
+.a{flex:0%}
+@@@EXPECT
+.a{flex:0%}
+@@@END
+@@@SHEET
+.a{stroke-dasharray:0%}
+@@@EXPECT
+.a{stroke-dasharray:0%}
+@@@END
+@@@SHEET
+.a{stroke-dashoffset:0%}
+@@@EXPECT
+.a{stroke-dashoffset:0%}
+@@@END
+@@@SHEET
+.a{grid-template-columns:0%}
+@@@EXPECT
+.a{grid-template-columns:0}
+@@@END
+@@@SHEET
+.a{background:0% 0% red}
+@@@EXPECT
+.a{background:0 0 red}
+@@@END
+@@@SHEET
+.a{border-radius:0%}
+@@@EXPECT
+.a{border-radius:0}
+@@@END
+@@@SHEET
+.a{-x-foo:0%}
+@@@EXPECT
+.a{-x-foo:0%}
+@@@END
+@@@SHEET
+.a{--custom:0%}
+@@@EXPECT
+.a{--custom:0%}
+@@@END
+@@@SHEET
+.a{opacity:0%}
+@@@EXPECT
+.a{opacity:0%}
+@@@END
+@@@SHEET
+.a{border-width:0%}
+@@@EXPECT
+.a{border-width:0}
+@@@END
+@@@SHEET
+.a{opacity:0px}
+@@@EXPECT
+.a{opacity:0}
+@@@END
+@@@SHEET
+.a{my-unknown-prop:0px}
+@@@EXPECT
+.a{my-unknown-prop:0}
+@@@END
+@@@SHEET
+.a{line-height:0px}
+@@@EXPECT
+.a{line-height:0}
+@@@END
+@@@SHEET
+.a{fill:white}
+@@@EXPECT
+.a{fill:#fff}
+@@@END
+@@@SHEET
+.a{stroke:white}
+@@@EXPECT
+.a{stroke:#fff}
+@@@END
+@@@SHEET
+.a{box-shadow:white}
+@@@EXPECT
+.a{box-shadow:white}
+@@@END
+@@@SHEET
+.a{text-shadow:0 0 1px white}
+@@@EXPECT
+.a{text-shadow:0 0 1px #fff}
+@@@END
+@@@SHEET
+.a{-webkit-box-shadow:0 0 1px white}
+@@@EXPECT
+.a{-webkit-box-shadow:0 0 1px #fff}
+@@@END
+@@@SHEET
+.a{font:12px white}
+@@@EXPECT
+.a{font:12px white}
+@@@END
+@@@SHEET
+.a{-x-foo:white}
+@@@EXPECT
+.a{-x-foo:white}
+@@@END
+@@@SHEET
+.a{--custom:white}
+@@@EXPECT
+.a{--custom:white}
+@@@END
+@@@SHEET
+.a{border:1px solid white}
+@@@EXPECT
+.a{border:1px solid #fff}
+@@@END
+@@@SHEET
+.a{outline:1px solid white}
+@@@EXPECT
+.a{outline:1px solid #fff}
+@@@END
+@@@SHEET
+.a{caret-color:white}
+@@@EXPECT
+.a{caret-color:#fff}
+@@@END
+@@@SHEET
+.a{column-rule:1px solid white}
+@@@EXPECT
+.a{column-rule:1px solid #fff}
+@@@END
+@@@SHEET
+.a{text-decoration-color:white}
+@@@EXPECT
+.a{text-decoration-color:#fff}
+@@@END
+@@@SHEET
+.a{background-image:linear-gradient(white,black)}
+@@@EXPECT
+.a{background-image:linear-gradient(#fff,#000)}
+@@@END
+@@@SHEET
+.a{stroke:linear-gradient(white,black)}
+@@@EXPECT
+.a{stroke:linear-gradient(white,black)}
+@@@END
+@@@SHEET
+.a{background:url(a.png) white}
+@@@EXPECT
+.a{background:url(a.png)#fff}
+@@@END
+@@@SHEET
+.a{list-style:none white}
+@@@EXPECT
+.a{list-style:none white}
+@@@END
+@@@BLOCK
+stroke-width:3; margin-top: 1em; margin-right: 1em; margin-bottom: 1em; margin-left: 1em;
+@@@EXPECT
+stroke-width:3;margin:1em
+@@@END
+@@@BLOCK
+fill:red;fill:blue
+@@@EXPECT
+fill:#00f
+@@@END
+@@@BLOCK
+margin:1px;margin-top:2px
+@@@EXPECT
+margin:2px 1px 1px
+@@@END
+@@@BLOCK
+margin-top:1px;margin-right:2px;margin-bottom:1px;margin-left:2px
+@@@EXPECT
+margin:1px 2px
+@@@END
+@@@BLOCK
+color:red!important;color:blue
+@@@EXPECT
+color:red!important
+@@@END
+@@@BLOCK
+padding-top:1px;padding-right:1px;padding-bottom:1px;padding-left:1px
+@@@EXPECT
+padding:1px
+@@@END
+@@@BLOCK
+font:12px serif;font-size:14px
+@@@EXPECT
+font:12px serif;font-size:14px
+@@@END
+@@@BLOCK
+display:block;display:table
+@@@EXPECT
+display:block;display:table
+@@@END
+@@@BLOCK
+COLOR:RED;--X:Y
+@@@EXPECT
+COLOR:red;--X:Y
+@@@END
+@@@BLOCK
+background:url( 'a.png' )
+@@@EXPECT
+background:url(a.png)
+@@@END
+@@@BLOCK
+stroke-width:0.5;opacity:.50
+@@@EXPECT
+stroke-width:.5;opacity:.5
+@@@END
+@@@BLOCK
+fill:rgb(255,0,0)
+@@@EXPECT
+fill:red
+@@@END
+@@@BLOCK
+width:0px;height:0em
+@@@EXPECT
+width:0;height:0
+@@@END
+@@@BLOCK
+font-weight:normal
+@@@EXPECT
+font-weight:400
+@@@END
+@@@BLOCK
+border:medium none
+@@@EXPECT
+border:medium
+@@@END
+@@@BLOCK
+transform:translate( 1px , 2px )
+@@@EXPECT
+transform:translate(1px,2px)
+@@@END
+@@@BLOCK
+
+@@@EXPECT
+
+@@@END
+@@@BLOCK
+   
+@@@EXPECT
+
+@@@END
+@@@BLOCK
+color:red;
+@@@EXPECT
+color:red
+@@@END

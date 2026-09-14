@@ -5,3 +5,5 @@ kotlin-js-store/
 .idea/
 .DS_Store
 python/
+.kotlin/
+node_modules/

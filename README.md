@@ -10,8 +10,9 @@ without a JavaScript runtime.
   standard library, so it builds for JVM, JS, Native (Windows/Linux/macOS/iOS) and anything else
   Kotlin targets.
 - **Faithful.** All 53 built-in plugins plus `preset-default` are implemented, and the port is
-  verified against upstream's own fixture suite — 373 of 377 cases match the JavaScript original
-  byte-for-byte.
+  verified against upstream's own fixture suite — all 377 cases match the JavaScript original
+  byte-for-byte. The CSS minifier is additionally diffed against `csso`, the minifier SVGO
+  delegates to, over hand-written and randomly generated stylesheets.
 - **Ships a CLI.** A single self-contained `svgo` executable per desktop platform — 3.6 MB, no JVM,
   no Node — plus a runnable jar for the JVM.
 
@@ -245,46 +246,66 @@ entries accept a `ClassNameGenerator`.
 
 ## Fidelity
 
-The port is verified four ways:
+The port is verified five ways:
 
 1. **Upstream fixture suite** — all 377 `test/plugins/*.svg.txt` fixtures from SVGO run through
    `optimize` and compared byte-for-byte, each applied twice to also assert idempotence.
-   **373 match exactly**; the 4 known gaps are listed below.
+   **All 377 match exactly**; there are no known gaps.
 2. **Unit tests** ported from `lib/path.test.js`, `lib/parser.test.js` and `lib/xast.test.js`, plus
    an ECMA-262 number-formatting suite.
 3. **Whole-document tests** — complete real-world SVGs optimized with the default preset and
    `multipass`, compared against output captured from the reference JavaScript SVGO 4.1.0. All match
    byte-for-byte.
-4. **Corpus cross-check** — every fixture SVG run through the full `preset-default` with
-   `multipass`, diffed against the JavaScript original: 361 of 377 identical, the remaining 16 all
-   attributable to the CSS-minifier gap below (one of them is a case where the JavaScript original
-   throws and this implementation does not).
+4. **CSS differential suite** — the CSS minifier is compared against `csso` itself, the minifier
+   SVGO delegates to. 294 hand-written cases cover one behaviour each of csso's clean, replace and
+   restructure stages; 1,500 pseudo-random stylesheets, generated from the vocabulary those passes
+   branch on, cover the combinations nobody thought to write down. Runs of 20,000–30,000 sheets
+   across three seeds were used while porting — see [`tools/`](tools/README.md) to repeat them.
+5. **Corpus cross-check** — every fixture SVG run through the full `preset-default` with
+   `multipass`, diffed against the JavaScript original: 374 of 377 identical. Of the remaining
+   three, two are inputs where the JavaScript original throws and this implementation does not; the
+   third is described below.
 
-Results: **442 tests, 0 failures** on the JVM. The 59 platform-independent tests also run green on
+Results: **2,236 tests, 0 failures** on the JVM. The 59 platform-independent tests also run green on
 Kotlin/JS, which is what makes the multiplatform claim more than aspirational — including the
 number formatting, where JVM and JS agree digit for digit.
 
-### Known differences from JavaScript SVGO
+### The CSS engine
 
 SVGO delegates CSS work to [`csso`](https://github.com/css/csso) and
-[`css-tree`](https://github.com/csstree/csstree). This library ships its own CSS engine. It
-reproduces csso's whitespace/comment removal, its *value* minification (color name → hex, hex
-shortening, number leading/trailing zero removal, `url()` unquoting), its media-query minification
-and its usage-based dead-rule removal (selectors that can no longer match any element are dropped).
+[`css-tree`](https://github.com/csstree/csstree). This library ships its own CSS engine, and it
+reproduces all three of csso's stages:
 
-What it does **not** reproduce is csso's *restructuring* engine
-([`csso/lib/restructure`](https://github.com/css/csso/tree/master/lib/restructure), ~1,700 lines and
-a subsystem in its own right):
+- **clean** — comments, empty rules, unreachable at-rules, and rules whose selectors can no longer
+  match any element in the document;
+- **replace** — value minification: colour keywords and `rgb()`/`hsl()` functions to the shortest
+  equivalent, hex shortening, number packing, zero lengths losing their unit, and the `font`,
+  `font-weight`, `background`, `border` and `outline` shorthand rewrites;
+- **restructure** — the eight passes of
+  [`csso/lib/restructure`](https://github.com/css/csso/tree/master/lib/restructure): at-rule
+  relocation and `@media` merging, rule merging by selector and by declaration block, selector-list
+  disjoining, shorthand merging (`padding-top/right/bottom/left` → `padding`), removal of
+  declarations a later one overrides or a shorthand covers, and extraction of shared declarations
+  into their own rule where that comes out smaller.
 
-- shorthand merging (`padding-top/right/bottom/left` → `padding`),
-- merging rules that share a selector or a declaration block,
-- block restructuring across rules.
+Generation reproduces css-tree's *safe* token adjacency, so a separating space appears exactly where
+re-parsing would otherwise read a different token stream.
 
-This affects `minifyStyles` and, through the serialized stylesheet, `inlineStyles` and `mergeStyles`
-output — CSS comes out correct and minified, just not as *small* as csso makes it. Three fixtures
-exercise those passes specifically. A fourth gap, `inlineStyles.15`, hinges on csstree's
-serialization of the deprecated `/deep/` combinator. The suite reports these four as known gaps, and
-fails if any of them starts passing, so the list cannot go stale.
+### Known differences from JavaScript SVGO
+
+Two of csso's decisions consult css-tree's full syntax database: whether a keyword sits in a
+`<color>` position, and whether `0%` may be written as `0`. Shipping that database would roughly
+double the artifact, so both questions are answered ahead of time from tables derived from that
+same lexer — 56 properties that take a colour keyword, 175 where a zero percentage is a length,
+plus the function positions (gradients for colours, `translate()`/`inset()`/`polygon()` and friends
+for lengths) and a term count that stands in for the `<shadow>` grammar. Every property and function
+csso's own lexer knows is covered; a property invented after this table was generated would simply
+not be minified, never mis-minified.
+
+One fixture, `minifyStyles.03`, differs in the full pipeline: SVGO's `cleanupEnableBackground`
+re-serializes the whole `style` attribute with plain css-tree, which always escapes a `url()` rather
+than quoting it. This implementation keeps the shorter quoted form, so its output is four bytes
+smaller and otherwise identical.
 
 Everything outside CSS minification — path data, transforms, colors, numbers, structure, attributes
 — matches the reference exactly.
@@ -309,6 +330,8 @@ implementation:
 gradle jvmTest -Dsvgo.corpusDump=/tmp/kt-out
 ```
 
+To regenerate the CSS parity corpora from the reference `csso`, see [`tools/`](tools/README.md).
+
 ## Project layout
 
 | Path | Contents |
@@ -320,12 +343,14 @@ gradle jvmTest -Dsvgo.corpusDump=/tmp/kt-out
 | `Transforms.kt` | transform matrices and decomposition (`plugins/_transforms.js`) |
 | `css/CssSyntax.kt` | CSS Syntax Level 3 tokenizer and parser (replaces `tinycss2`/`css-tree`) |
 | `css/Selector.kt` | CSS selector parser and specificity (replaces `cssselect`/`css-what`) |
-| `Css.kt`, `Style.kt` | selector matching, computed styles, CSS minification (`lib/style.js`) |
+| `Css.kt`, `Style.kt` | selector matching and computed styles (`lib/style.js`) |
+| `CssMinify.kt`, `CssReplace.kt`, `css/Restructure.kt` | the CSS minifier: csso's clean, replace and restructure stages |
 | `Collections.kt` | the SVG element/attribute/color tables, generated from `plugins/_collections.js` |
 | `plugins/` | all 53 plugins |
 | `Engine.kt`, `Builtin.kt`, `Optimize.kt` | plugin engine, registry and the public `optimize` entry point |
 | `cli/Cli.kt` | the command line, platform-independent behind a `CliIo` interface |
 | `jvmMain/`, `nativeMain/` | the two CLI hosts: `java.io` and `fopen`/`opendir` respectively |
+| `tools/` | scripts that record `csso` output for the CSS differential suite |
 
 Why JavaScript number semantics need 250 lines: SVGO's output is compared byte-for-byte, and
 `Number.prototype.toString` has behaviour no platform reproduces for free — exponent thresholds at

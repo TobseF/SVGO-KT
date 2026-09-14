@@ -28,7 +28,9 @@ import io.github.tobsef.svgo.css.TypeSelector
 import io.github.tobsef.svgo.css.parseRuleList
 import io.github.tobsef.svgo.css.parseSelectorGroupOrNull
 import io.github.tobsef.svgo.css.parseStylesheet
+import io.github.tobsef.svgo.css.parseComponentValueList
 import io.github.tobsef.svgo.css.serialize
+import io.github.tobsef.svgo.minifySelectorTokens
 import io.github.tobsef.svgo.declarationsOf
 import io.github.tobsef.svgo.detachNodeFromParent
 import io.github.tobsef.svgo.generateAtRulePrelude
@@ -53,10 +55,10 @@ private val REG_WS_RUN_INLINE = Regex("""\s+""")
 private val REG_COMBINATOR_INLINE = Regex("""\s*([>+~])\s*""")
 private val REG_PSEUDO_FRAGMENT = Regex("""::?[A-Za-z-]+(\([^)]*\))?""")
 
-private fun minifySelectorText(text: String): String {
-    var result = REG_WS_RUN_INLINE.replace(text.trim(), " ")
-    result = REG_COMBINATOR_INLINE.replace(result) { it.groupValues[1] }
-    return result
+private fun minifySelectorText(text: String): String = try {
+    minifySelectorTokens(parseComponentValueList(text))
+} catch (_: Exception) {
+    REG_COMBINATOR_INLINE.replace(REG_WS_RUN_INLINE.replace(text.trim(), " ")) { it.groupValues[1] }
 }
 
 /** One selector of a rule's selector list. */
@@ -387,8 +389,11 @@ private fun applyRuleToElement(
     // first original declaration (new rule declarations are inserted before it, mirroring
     // csstree's insert-before-firstListItem)
     val firstOriginal = declarations.firstOrNull()
-    var indexMap = HashMap<String, Int>()
-    for (i in declarations.indices) indexMap[declarations[i].name.lowercase()] = i
+    // Keyed by identity, and -- like upstream -- only ever updated when an existing declaration is
+    // replaced, never when one is inserted. A rule that declares the same property twice therefore
+    // contributes both, in source order, and the later one wins once the block is minified.
+    val matched = HashMap<String, Declaration>()
+    for (declaration in declarations) matched[declaration.name.lowercase()] = declaration
 
     for (ruleDeclaration in rule.declarations) {
         val property = ruleDeclaration.name
@@ -399,20 +404,19 @@ private fun applyRuleToElement(
         }
 
         val key = property.lowercase()
-        val existingIndex = indexMap[key]
-        if (existingIndex == null) {
-            val newDeclaration = Declaration(property, ruleDeclaration.value, ruleDeclaration.important)
+        val existing = matched[key]
+        val newDeclaration = Declaration(property, ruleDeclaration.value, ruleDeclaration.important)
+        if (existing == null) {
             if (firstOriginal == null) {
                 declarations.add(newDeclaration)
             } else {
                 val at = declarations.indexOfFirst { it === firstOriginal }
                 declarations.add(if (at >= 0) at else declarations.size, newDeclaration)
             }
-            indexMap = HashMap()
-            for (i in declarations.indices) indexMap[declarations[i].name.lowercase()] = i
-        } else if (!declarations[existingIndex].important && ruleDeclaration.important) {
-            declarations[existingIndex] =
-                Declaration(property, ruleDeclaration.value, ruleDeclaration.important)
+        } else if (!existing.important && ruleDeclaration.important) {
+            val at = declarations.indexOfFirst { it === existing }
+            if (at >= 0) declarations[at] = newDeclaration
+            matched[key] = newDeclaration
         }
     }
 

@@ -1,0 +1,13 @@
+{
+  "name": "svgo-kt-css-parity-tools",
+  "private": true,
+  "type": "module",
+  "description": "Records csso output so the Kotlin CSS minifier can be diffed against it.",
+  "scripts": {
+    "corpus": "node css-corpus.mjs",
+    "fuzz": "node css-fuzz.mjs ../src/jvmTest/resources/css/fuzz.txt 1500 20260913"
+  },
+  "devDependencies": {
+    "csso": "5.0.5"
+  }
+}

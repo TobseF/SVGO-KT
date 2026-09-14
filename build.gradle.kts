@@ -1,3 +1,5 @@
+import org.gradle.api.publish.maven.tasks.AbstractPublishToMaven
+import org.gradle.plugins.signing.Sign
 import org.jetbrains.kotlin.konan.target.HostManager
 import org.jetbrains.kotlin.konan.target.KonanTarget
 
@@ -69,7 +71,7 @@ kotlin {
     if (buildableHere(KonanTarget.IOS_SIMULATOR_ARM64)) iosSimulatorArm64()
 
     sourceSets {
-        val commonTest by getting {
+        getByName("commonTest") {
             dependencies {
                 implementation(kotlin("test"))
             }
@@ -85,7 +87,7 @@ java {
  * A self-contained `svgo-kt-cli.jar` (library + CLI + kotlin-stdlib) runnable with `java -jar`.
  * The library itself has no dependencies, so "fat" here means little more than the stdlib.
  */
-val jvmCliJar by tasks.registering(Jar::class) {
+val jvmCliJar = tasks.register<Jar>("jvmCliJar") {
     group = "build"
     description = "Builds a runnable JVM command line jar."
     archiveBaseName.set("svgo-kt-cli")
@@ -117,7 +119,7 @@ val hostUnsupportedPublications: List<String> = kotlin.targets
     .map { it.name }
 
 /** An empty javadoc jar; Maven Central requires one, and it keeps local POMs consistent. */
-val javadocJar by tasks.registering(Jar::class) {
+val javadocJar = tasks.register<Jar>("javadocJar") {
     archiveClassifier.set("javadoc")
 }
 
@@ -168,7 +170,16 @@ signing {
     sign(publishing.publications)
 }
 
-val zipCentralBundle by tasks.registering(Zip::class) {
+/**
+ * Every publication reuses the single [javadocJar], so its signature (`*-javadoc.jar.asc`) is
+ * produced by one `Sign` task yet consumed by all publish tasks. Gradle 9 rejects this implicit
+ * cross-task dependency, so make each publish task explicitly depend on every signing task.
+ */
+tasks.withType<AbstractPublishToMaven>().configureEach {
+    dependsOn(tasks.withType<Sign>())
+}
+
+tasks.register<Zip>("zipCentralBundle") {
     group = "publishing"
     description = "Packs the local staging repository into a bundle for Maven Central Portal."
     dependsOn("publishAllPublicationsToStagingRepository")

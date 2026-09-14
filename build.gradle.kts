@@ -4,6 +4,7 @@ import org.jetbrains.kotlin.konan.target.KonanTarget
 plugins {
     kotlin("multiplatform") version "2.1.0"
     `maven-publish`
+    signing
 }
 
 group = "io.github.tobsef"
@@ -121,6 +122,13 @@ val javadocJar by tasks.registering(Jar::class) {
 }
 
 publishing {
+    repositories {
+        maven {
+            name = "staging"
+            url = uri(layout.buildDirectory.dir("staging-repo"))
+        }
+    }
+
     publications.withType<MavenPublication>().configureEach {
         artifact(javadocJar)
         pom {
@@ -147,6 +155,26 @@ publishing {
             }
         }
     }
+}
+
+signing {
+    val signingKey = System.getenv("SIGNING_KEY") ?: (findProperty("signing.key") as String?)
+    val signingPassword = System.getenv("SIGNING_PASSWORD") ?: (findProperty("signing.password") as String?)
+    if (!signingKey.isNullOrBlank()) {
+        useInMemoryPgpKeys(signingKey, signingPassword)
+    }
+    val isReleaseVersion = !version.toString().endsWith("SNAPSHOT")
+    isRequired = isReleaseVersion && (!signingKey.isNullOrBlank() || project.hasProperty("signing.keyId"))
+    sign(publishing.publications)
+}
+
+val zipCentralBundle by tasks.registering(Zip::class) {
+    group = "publishing"
+    description = "Packs the local staging repository into a bundle for Maven Central Portal."
+    dependsOn("publishAllPublicationsToStagingRepository")
+    archiveFileName.set("bundle.zip")
+    destinationDirectory.set(layout.buildDirectory.dir("bundle"))
+    from(layout.buildDirectory.dir("staging-repo"))
 }
 
 // Disable the publication tasks of targets this host cannot build.

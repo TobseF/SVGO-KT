@@ -30,6 +30,7 @@ jobs:
             tasks: >-
               publishJvmPublicationToStagingRepository
               publishJsPublicationToStagingRepository
+              publishWasmJsPublicationToStagingRepository
               publishLinuxX64PublicationToStagingRepository
               publishKotlinMultiplatformPublicationToStagingRepository
           - os: macos-latest

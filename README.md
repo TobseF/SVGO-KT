@@ -51,9 +51,12 @@ kotlin {
 The dependency belongs in `commonMain` -- the whole API is common code, so shared UI code can call
 `optimize` directly and every target gets its own artifact.
 
+The JVM, `js`, and `wasmJs` (Kotlin/Wasm for the browser and Node.js) variants are pure Kotlin and
+publish from any host; only the Kotlin/Native artifacts are host-dependent.
+
 **Which targets you get depends on the machine you publish from.** Kotlin/Native cross-compiles only
-within the host's platform family, so a Windows host produces `jvm`, `js`, `mingwX64` and `linuxX64`,
-while the Apple targets need a macOS host. By default the build declares *only* the targets the host
+within the host's platform family, so a Windows host produces `jvm`, `js`, `wasmJs`, `mingwX64` and
+`linuxX64`, while the Apple targets need a macOS host. By default the build declares *only* the targets the host
 can build, so the published Gradle metadata never advertises a variant whose module is missing --
 otherwise a consumer with an iOS target fails with a confusing "could not find
 `svgo-kt-iosarm64`". Run `reportPublishedTargets` to see the split.
@@ -66,9 +69,9 @@ gradle publish -PhostTargetsOnly=false
 ```
 
 An `androidTarget()` consumer resolves the `jvm` variant, since Kotlin treats `androidJvm` as
-compatible with `jvm`. If you need a dedicated Android variant (or a `wasmJs` one), add the target
-to `build.gradle.kts` and republish -- the library code itself needs no changes, because it is
-already platform independent.
+compatible with `jvm`. If you need a dedicated Android variant, add the target to `build.gradle.kts`
+and republish -- the library code itself needs no changes, because it is already platform
+independent.
 
 ## Usage
 

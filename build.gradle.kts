@@ -1,5 +1,6 @@
 import org.gradle.api.publish.maven.tasks.AbstractPublishToMaven
 import org.gradle.plugins.signing.Sign
+import org.jetbrains.kotlin.gradle.ExperimentalWasmDsl
 import org.jetbrains.kotlin.konan.target.HostManager
 import org.jetbrains.kotlin.konan.target.KonanTarget
 
@@ -57,6 +58,14 @@ kotlin {
     }
 
     js(IR) {
+        nodejs()
+        browser()
+    }
+
+    // Kotlin/Wasm compiled to the JS/browser platform. Like `js`, the library is pure Kotlin, so it
+    // builds straight from commonMain and publishes from any host next to the other artifacts.
+    @OptIn(ExperimentalWasmDsl::class)
+    wasmJs {
         nodejs()
         browser()
     }
